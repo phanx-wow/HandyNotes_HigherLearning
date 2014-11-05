@@ -16,9 +16,9 @@
 ## X-License: All rights reserved.
 ## X-CompatibleLocales: deDE, enUS, esES, esMX, frFR, itIT, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
 ## X-Localizations: deDE, enUS, esES, esMX
-## X-Website: http://www.wowinterface.com/downloads/info-HandyNotes-HigherLearning.html
+## X-Website: http://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
 ## X-Curse-Project-ID: handynotes-higher-learning
-## X-WoWI-ID: 
+## X-WoWI-ID: 23267
 
 ## Dependencies: HandyNotes
 
