@@ -1,0 +1,25 @@
+## Interface: 60000
+## Version: 6.0.3.wowi:revision
+
+## Title: HandyNotes: Higher Learning
+## Title-deDE: HandyNotes: Höheres Studium
+## Title-esES: HandyNotes: Conocimiento superior
+## Title-esMX: HandyNotes: Conocimiento superior
+## Notes: Shows the books you still need to read for the Higher Learning achievement.
+## Notes-deDE: Zeigt die Bücher, die Ihr für den Erfolg "Höheres Studium" noch lesen müsst.
+## Notes-esES: Muestra los libros que todavía debes que leer para el logro "Conocimiento superior".
+## Notes-esMX: Muestra los libros que todavía debes que leer para el logro "Conocimiento superior".
+
+## Author: Phanx
+## X-Email: addons@phanx.net
+## X-Copyright: Copyright (c) 2013-2014 Phanx.
+## X-License: All rights reserved.
+## X-CompatibleLocales: deDE, enUS, esES, esMX, frFR, itIT, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
+## X-Localizations: deDE, enUS, esES, esMX
+## X-Website: http://www.wowinterface.com/downloads/info-HandyNotes-HigherLearning.html
+## X-Curse-Project-ID: handynotes-higher-learning
+## X-WoWI-ID: 
+
+## Dependencies: HandyNotes
+
+Addon.lua
