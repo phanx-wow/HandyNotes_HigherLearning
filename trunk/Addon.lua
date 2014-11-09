@@ -1,16 +1,16 @@
 --[[--------------------------------------------------------------------
 	HandyNotes: Higher Learning
 	Shows the books you still need for the Higher Learning achievement.
-	Copyright (c) 2014 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
 	http://www.curse.com/addons/wow/handynotes-higher-learning
 
+	Copyright (c) 2014 Phanx <addons@phanx.net>. All rights reserved.
 	Please DO NOT upload this addon to other websites, or post modified
-	versions of it. However, you are welcome to use any/all of its code
-	in your own addon, as long as you do not use my name or the name of
-	this addon ANYWHERE in your addon, including in its name, outside of
-	an optional attribution. You are also welcome to include this addon
+	versions of it. However, you are welcome to include a copy of it
 	WITHOUT CHANGES in compilations posted on Curse and/or WoWInterface.
+	You are also welcome to use any/all of its code in your own addon, as
+	long as you do not use my name or the name of this addon ANYWHERE in
+	your addon, including its name, outside of an optional attribution.
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME = ...

@@ -6,7 +6,7 @@
 ## Title-esES: HandyNotes: Conocimiento superior
 ## Title-esMX: HandyNotes: Conocimiento superior
 ## Notes: Shows the books you still need to read for the Higher Learning achievement.
-## Notes-deDE: Zeigt die Bücher, die Ihr für den Erfolg "Höheres Studium" noch lesen müsst.
+## Notes-deDE: Zeigt die Bücher an, die Ihr für den Erfolg "Höheres Studium" noch lesen müsst.
 ## Notes-esES: Muestra los libros que todavía debes que leer para el logro "Conocimiento superior".
 ## Notes-esMX: Muestra los libros que todavía debes que leer para el logro "Conocimiento superior".
 
