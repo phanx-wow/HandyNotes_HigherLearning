@@ -1,0 +1,11 @@
+package-as: Commended
+
+manual-changelog:
+   filename: CHANGELOG.md
+   markup-type: markdown
+
+ignore:
+   - README.md
+
+required-dependencies:
+   - handynotes
