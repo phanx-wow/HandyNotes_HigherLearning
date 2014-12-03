@@ -21,10 +21,10 @@ local L = {
 }
 if GetLocale() == "deDE" then
 	L["<Right-Click to set a waypoint in TomTom.>"] = "<Rechtsklick, um eine Zielpunkt in TomTom zu setzen.>"
-	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<STRG-Rechtsklick, um Zielpunkte für allen ungelesenen Bücher zu setzen.>"
+	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<STRG-Rechtsklick, um Zielpunkte für alle ungelesenen Bücher zu setzen.>"
 elseif GetLocale():match("^es") then
 	L["<Right-Click to set a waypoint in TomTom.>"] = "<Clic derecho para establecer un waypoint en TomTom.>"
-	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<Ctrl-clic derecho para waypoints de todos libros no leídos.>"
+	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<Ctrl-clic derecho para establecer waypoints de todos libros no leídos.>"
 end
 
 local books = {
