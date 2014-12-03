@@ -1,10 +1,11 @@
-package-as: Commended
+package-as: HandyNotes_HigherLearning
 
 manual-changelog:
    filename: CHANGELOG.md
    markup-type: markdown
 
 ignore:
+   - CHANGELOG.md
    - README.md
 
 required-dependencies:

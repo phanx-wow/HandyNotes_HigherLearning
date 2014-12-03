@@ -1,5 +1,5 @@
 ## Interface: 60000
-## Version: 6.0.3.3
+## Version: @project-version@
 
 ## Title: HandyNotes: Higher Learning
 ## Notes: Shows the books you still need to read for the Higher Learning achievement.
