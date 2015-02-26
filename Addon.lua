@@ -1,7 +1,7 @@
 --[[--------------------------------------------------------------------
 	HandyNotes: Higher Learning
 	Shows the books you still need for the Higher Learning achievement.
-	Copyright (c) 2014 Phanx <addons@phanx.net>. All rights reserved.
+	Copyright (c) 2014-2015 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
 	http://www.curse.com/addons/wow/handynotes-higher-learning
 	https://github.com/Phanx/HandyNotes_HigherLearning
@@ -87,7 +87,7 @@ do
 		if button ~= "RightButton" or not TomTom then
 			return
 		end
-		if IsCtrlKeyDown() then
+		if IsControlKeyDown() then
 			for coord in pairs(books) do
 				setWaypoint(coord)
 			end
@@ -139,8 +139,8 @@ function Addon:CRITERIA_COMPLETE(...)
 			--print("COMPLETED:", name)
 			books[coord] = nil
 			if waypoints[coord] then
-				if TomTom:IsValidWaypoint(waypoints[coord]) then
-					TomTomTom:RemoveWaypoint(waypoints[coord])
+				if TomTom and TomTom:IsValidWaypoint(waypoints[coord]) then
+					TomTom:RemoveWaypoint(waypoints[coord])
 				end
 				waypoints[coord] = nil
 			end
