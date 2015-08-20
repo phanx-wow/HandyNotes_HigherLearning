@@ -7,38 +7,54 @@
 	https://github.com/Phanx/HandyNotes_HigherLearning
 ----------------------------------------------------------------------]]
 
-local ADDON_NAME = ...
-local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
+local L = {}
+if GetLocale() == "deDE" then
+	L["<Right-Click to set a waypoint in TomTom>"] = "<Rechtsklick, um eine Zielpunkt in TomTom zu setzen>"
+	L["<Ctrl-Right-Click to set waypoints for all unread books>"] = "<STRG-Rechtsklick, um Zielpunkte für alle ungelesenen Bücher zu setzen>"
+	L["On the floor next to the bookshelf"] = "Auf dem Boden neben dem Bücherregal"
+	L["On the floor next to the table"] = "Auf dem Boden neben dem Tisch"
+	L["On the bookshelf on the left"] = "Auf dem linken Bücherregal"
+	L["Upstairs, on the floor to the left of the Caverns of Time portal"] = "Nach oben, auf dem Boden links von dem Portal zum Höhlen der Zeit"
+	L["On a crate on the balcony"] = "Auf einer Kiste auf dem Balkon"
+	L["On the crate next to the purple wine glass"] = "Auf der Kiste neben dem violetten Weinglas"
+	L["Upstairs, on the bookshelf in the west bedroom"] = "Nach oben, auf dem Bücherregal in dem westlichen Schlafzimmer"
+	L["Downstairs, on the bookshelf in the west corner"] = "Im Erdgeschoss, auf dem Bücherregal in der westlichen Ecke"
+elseif GetLocale():match("^es") then
+	L["<Right-Click to set a waypoint in TomTom>"] = "<Clic derecho para establecer un waypoint en TomTom>"
+	L["<Ctrl-Right-Click to set waypoints for all unread books>"] = "<Ctrl-clic derecho para establecer waypoints de todos libros no leídos>"
+	L["On the floor next to the bookshelf"] = "En el piso al lado de la estantería"
+	L["On the floor next to the table"] = "En el piso al lado de la mesa"
+	L["On the bookshelf on the left"] = "En la estantería a la izquierda"
+	L["Upstairs, on the floor to the left of the Caverns of Time portal"] = "En la planta alta, en el piso a la izquierda del portal a las Cavernas del Tiempo"
+	L["On a crate on the balcony"] = "En un cajón en el balcón"
+	L["On the crate next to the purple wine glass"] = "En el cajón al lado del vaso de vino purpúreo"
+	L["Upstairs, on the bookshelf in the west bedroom"] = "En la planta alta, en la estantería en el dormitorio occidental"
+	L["Downstairs, on the bookshelf in the west corner"] = "En la planta baja, en la estantería en la esquina occidental"
+end
 
+------------------------------------------------------------------------
+
+local books = {
+	[56684560] = { 7236, "Introduction",  "On the floor next to the bookshelf" },
+	[52385476] = { 7237, "Abjuration",    "On the floor next to the table" },
+	[30784589] = { 7238, "Conjuration",   "On the bookshelf on the left" },
+	[26525220] = { 7239, "Divination",    "Upstairs, on the floor to the left of the Caverns of Time portal" },
+	[43564671] = { 7240, "Enchantment",   "On a crate on the balcony" },
+	[64425237] = { 7241, "Illusion",      "On the crate next to the purple wine glass" },
+	[46693905] = { 7242, "Necromancy",    "Upstairs, on the bookshelf in the west bedroom" },
+	[46834001] = { 7243, "Transmutation", "Downstairs, on the bookshelf in the west corner" },
+}
+
+local waypoints = {}
+
+local ADDON_NAME = ...
 local MAPFILE, MAP_ID, ACHIEVEMENT_ID = "Dalaran", 504, 1956
 local ICON = "Interface\\Minimap\\Tracking\\Class"
 local ADDON_TITLE = GetAddOnMetadata(ADDON_NAME, "Title")
 local ACHIEVEMENT_NAME = select(2, GetAchievementInfo(ACHIEVEMENT_ID))
+local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
 
-local L = {
-	["<Right-Click to set a waypoint in TomTom.>"] = "<Right-Click to set a waypoint in TomTom.>",
-	["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<Ctrl-Right-Click to set waypoints for all unread books.>",
-}
-if GetLocale() == "deDE" then
-	L["<Right-Click to set a waypoint in TomTom.>"] = "<Rechtsklick, um eine Zielpunkt in TomTom zu setzen.>"
-	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<STRG-Rechtsklick, um Zielpunkte für alle ungelesenen Bücher zu setzen.>"
-elseif GetLocale():match("^es") then
-	L["<Right-Click to set a waypoint in TomTom.>"] = "<Clic derecho para establecer un waypoint en TomTom.>"
-	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<Ctrl-clic derecho para establecer waypoints de todos libros no leídos.>"
-end
-
-local books = {
-	[56684560] = 7236, -- Introduction
-	[52385476] = 7237, -- Abjuration
-	[30784589] = 7238, -- Conjuration
-	[23495221] = 7239, -- Divination
-	[43564671] = 7240, -- Enchantment
-	[64425237] = 7241, -- Illusion
-	[46693905] = 7242, -- Necromancy
-	[46693905] = 7243, -- Transmutation
-}
-
-local waypoints = {}
+setmetatable(L, { __index = function(t, k) t[k] = k return k end })
 
 ------------------------------------------------------------------------
 
@@ -51,13 +67,15 @@ function pluginHandler:OnEnter(mapFile, coord)
 	else
 		tooltip:SetOwner(self, "ANCHOR_RIGHT")
 	end
-	local criteriaID = books[coord]
-	if criteriaID then
-		tooltip:AddLine(ACHIEVEMENT_NAME, 1, 1, 1)
-		tooltip:AddLine(GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, criteriaID), 1, 1, 1)
-		if TomTom then
-			tooltip:AddLine(L["<Right-Click to set a waypoint in TomTom.>"])
-			tooltip:AddLine(L["<Ctrl-Right-Click to set waypoints for all unread books.>"])
+	local criteria = books[coord]
+	if criteria then
+		tooltip:AddLine(ACHIEVEMENT_NAME)
+		tooltip:AddLine(GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, criteria[1]), 1, 1, 1)
+		tooltip:AddLine(L[criteria[3]] or criteria[3], 1, 1, 1)
+		if TomTom and tooltip:GetOwner():GetParent() ~= Minimap then
+			-- ^ pins on minimap aren't clickable
+			tooltip:AddLine(L["<Right-Click to set a waypoint in TomTom>"])
+			tooltip:AddLine(L["<Ctrl-Right-Click to set waypoints for all unread books>"])
 		end
 		tooltip:Show()
 	end
@@ -74,7 +92,7 @@ do
 			return
 		end
 		local x, y = HandyNotes:getXY(coord)
-		local criteria = GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, books[coord])
+		local criteria = GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, books[coord][1])
 		waypoints[coord] = TomTom:AddMFWaypoint(MAP_ID, nil, x, y, {
 			title = criteria,
 			persistent = nil,
@@ -83,18 +101,31 @@ do
 		})
 	end
 
+	local function setAllWaypoints()
+		for coord in pairs(books) do
+			setWaypoint(coord)
+		end
+		TomTom:SetClosestWaypoint()
+	end
+
 	function pluginHandler:OnClick(button, down, mapFile, coord)
 		if button ~= "RightButton" or not TomTom then
 			return
 		end
 		if IsControlKeyDown() then
-			for coord in pairs(books) do
-				setWaypoint(coord)
-			end
-			local data = waypoints[coord]
-			TomTom:SetCrazyArrow(data, TomTom.profile.arrow.arrival, data.title)
+			setAllWaypoints()
+			--local data = waypoints[coord]
+			--TomTom:SetCrazyArrow(data, TomTom.profile.arrow.arrival, data.title)
 		else
 			setWaypoint(coord)
+		end
+	end
+
+	SLASH_HANDYNOTES_HIGHERLEARNING1 = "/hnhl"
+	SLASH_HANDYNOTES_HIGHERLEARNING2 = "/higherlearning"
+	SlashCmdList["HANDYNOTES_HIGHERLEARNING"] = function()
+		if TomTom then
+			setAllWaypoints()
 		end
 	end
 end
@@ -133,8 +164,8 @@ end
 function Addon:CRITERIA_COMPLETE(...)
 	--print("CRITERIA_COMPLETE", ...)
 	local changed
-	for coord, criteriaID in pairs(books) do
-		local name, _, complete = GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, criteriaID)
+	for coord, criteria in pairs(books) do
+		local name, _, complete = GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, criteria[1])
 		if complete then
 			--print("COMPLETED:", name)
 			books[coord] = nil

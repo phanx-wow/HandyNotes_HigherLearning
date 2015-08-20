@@ -1,3 +1,8 @@
+### Version 6.2.0.4 (2015 Aug 20)
+
+* Added tooltip hints describing the location of each book (upstairs, downstairs, etc.)
+* Added a slash command (/hnhl) to set TomTom waypoints for all unread books
+
 ### Version 6.1.0.3 (2015 Feb 26)
 
 * Updated for WoW 6.1
