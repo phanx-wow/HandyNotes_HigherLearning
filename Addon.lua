@@ -157,8 +157,17 @@ Addon:SetScript("OnEvent", function(self, event, ...) return self[event](self, .
 function Addon:PLAYER_LOGIN()
 	--print("PLAYER_LOGIN")
 	HandyNotes:RegisterPluginDB(ACHIEVEMENT_NAME, pluginHandler)
-	self:RegisterEvent("CRITERIA_COMPLETE")
+	self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	self:CRITERIA_COMPLETE()
+end
+
+function Addon:ZONE_CHANGED_NEW_AREA()
+	--print("ZONE_CHANGED_NEW_AREA", GetCurrentMapAreaID(), GetZoneText())
+	if GetCurrentMapAreaID() == 504 or GetZoneText() == GetMapNameByID(504) then
+		self:RegisterEvent("CRITERIA_COMPLETE")
+	else
+		self:UnregisterEvent("CRITERIA_COMPLETE")
+	end
 end
 
 function Addon:CRITERIA_COMPLETE(...)
@@ -167,7 +176,7 @@ function Addon:CRITERIA_COMPLETE(...)
 	for coord, criteria in pairs(books) do
 		local name, _, complete = GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, criteria[1])
 		if complete then
-			--print("COMPLETED:", name)
+			print("COMPLETED:", name)
 			books[coord] = nil
 			if waypoints[coord] then
 				if TomTom and TomTom:IsValidWaypoint(waypoints[coord]) then
