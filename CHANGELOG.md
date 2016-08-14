@@ -1,3 +1,7 @@
+### Version 7.0.3.0 (2016 Aug 13)
+
+* Updated for WoW 7.0
+
 ### Version 6.2.0.4 (2015 Aug 20)
 
 * Added tooltip hints describing the location of each book (upstairs, downstairs, etc.)
