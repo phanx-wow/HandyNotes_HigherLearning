@@ -1,9 +1,9 @@
 --[[--------------------------------------------------------------------
 	HandyNotes: Higher Learning
 	Shows the books you still need for the Higher Learning achievement.
-	Copyright (c) 2014-2016 Phanx <addons@phanx.net>. All rights reserved.
-	http://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
-	https://mods.curse.com/addons/wow/handynotes-higher-learning
+	Copyright (c) 2014-2018 Phanx <addons@phanx.net>. All rights reserved.
+	https://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
+	https://www.curseforge.com/wow/addons/handynotes-higher-learning
 	https://github.com/Phanx/HandyNotes_HigherLearning
 ----------------------------------------------------------------------]]
 

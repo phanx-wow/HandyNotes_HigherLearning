@@ -1,4 +1,4 @@
-## Interface: 70100
+## Interface: 70300
 ## Version: @project-version@
 
 ## Title: HandyNotes: Higher Learning
@@ -12,9 +12,9 @@
 
 ## Author: Phanx
 ## X-Email: addons@phanx.net
-## X-Copyright: Copyright (c) 2014-2016 Phanx. All rights reserved.
+## X-License: All Rights Reserved
 ## X-Website: https://github.com/Phanx/HandyNotes_HigherLearning
-## X-Curse-Project-ID: handynotes-higher-learning
+## X-Curse-Project-ID: 86406
 ## X-WoWI-ID: 23267
 
 ## Dependencies: HandyNotes
