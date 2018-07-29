@@ -48,7 +48,7 @@ local books = {
 local waypoints = {}
 
 local ADDON_NAME = ...
-local MAPFILE, MAP_ID, ACHIEVEMENT_ID = "Dalaran", 504, 1956
+local MAP_ID, ACHIEVEMENT_ID = 125, 1956
 local ICON = "Interface\\Minimap\\Tracking\\Class"
 local ADDON_TITLE = GetAddOnMetadata(ADDON_NAME, "Title")
 local ACHIEVEMENT_NAME = select(2, GetAchievementInfo(ACHIEVEMENT_ID))
@@ -60,7 +60,7 @@ setmetatable(L, { __index = function(t, k) t[k] = k return k end })
 
 local pluginHandler = {}
 
-function pluginHandler:OnEnter(mapFile, coord)
+function pluginHandler:OnEnter(mapID, coord)
 	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
 	if self:GetCenter() > UIParent:GetCenter() then
 		tooltip:SetOwner(self, "ANCHOR_LEFT")
@@ -81,7 +81,7 @@ function pluginHandler:OnEnter(mapFile, coord)
 	end
 end
 
-function pluginHandler:OnLeave(mapFile, coord)
+function pluginHandler:OnLeave(mapID, coord)
 	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
 	tooltip:Hide()
 end
@@ -91,9 +91,11 @@ do
 		if waypoints[coord] and TomTom:IsValidWaypoint(waypoints[coord]) then
 			return
 		end
+
 		local x, y = HandyNotes:getXY(coord)
 		local criteria = GetAchievementCriteriaInfoByID(ACHIEVEMENT_ID, books[coord][1])
-		waypoints[coord] = TomTom:AddMFWaypoint(MAP_ID, nil, x, y, {
+
+		waypoints[coord] = TomTom:AddWaypoint(MAP_ID, x, y, {
 			title = criteria,
 			persistent = nil,
 			minimap = true,
@@ -105,10 +107,11 @@ do
 		for coord in pairs(books) do
 			setWaypoint(coord)
 		end
+
 		TomTom:SetClosestWaypoint()
 	end
 
-	function pluginHandler:OnClick(button, down, mapFile, coord)
+	function pluginHandler:OnClick(button, down, mapID, coord)
 		if button ~= "RightButton" or not TomTom then
 			return
 		end
@@ -136,15 +139,15 @@ do
 		local k, v = next(t, last)
 		while k do
 			if v then
-				-- coord, mapFile2, iconpath, scale, alpha, level2
+				-- coord, mapID, iconpath, scale, alpha
 				return k, nil, ICON, 1, 1
 			end
 			k, v = next(t, k)
 		end
 	end
 
-	function pluginHandler:GetNodes(mapFile, minimap, dungeonLevel)
-		return iterator, mapFile == MAPFILE and books or nil
+	function pluginHandler:GetNodes2(mapID, minimap)
+		return iterator, mapID == MAP_ID and books or nil
 	end
 end
 
@@ -162,8 +165,8 @@ function Addon:PLAYER_LOGIN()
 end
 
 function Addon:ZONE_CHANGED_NEW_AREA()
-	--print("ZONE_CHANGED_NEW_AREA", GetCurrentMapAreaID(), GetZoneText())
-	if GetCurrentMapAreaID() == 504 or GetZoneText() == GetMapNameByID(504) then
+	--print("ZONE_CHANGED_NEW_AREA", C_Map.GetBestMapForUnit())
+	if C_Map.GetBestMapForUnit("player") == MAP_ID then
 		self:RegisterEvent("CRITERIA_COMPLETE")
 	else
 		self:UnregisterEvent("CRITERIA_COMPLETE")
